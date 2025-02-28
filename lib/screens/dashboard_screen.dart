@@ -37,6 +37,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ? FloatingActionButton(
               onPressed: () {
                 // Navigate to add expense screen
+                Navigator.pushNamed(context, '/expense_form');
+
               },
               child: const Icon(Icons.add),
             )

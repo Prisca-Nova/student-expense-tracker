@@ -16,7 +16,12 @@ class ReportsScreen extends StatelessWidget {
         valueListenable: DbHelper.expenseBox.listenable(),
         builder: (context, Box<Expense> box, _) {
           if (box.isEmpty) {
-            return const Center(child: Text('No transactions yet.'));
+            return const Center(
+              child: Text(
+                'No expenses yet.',
+                style: TextStyle(fontSize: 18, color: Colors.grey),
+              ),
+            );
           }
           final expenses = box.values.toList();
           final totalExpenses = expenses.fold(0.0, (sum, expense) => sum + expense.amount);
@@ -39,10 +44,18 @@ class ReportsScreen extends StatelessWidget {
                     final expense = expenses[index];
                     return Card(
                       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                       child: ListTile(
-                        title: Text(expense.description),
+                        title: Text(
+                          expense.description,
+                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
                         subtitle: Text(
                           '\$${expense.amount.toStringAsFixed(2)} - ${expense.date.toString().split(' ')[0]}',
+                          style: const TextStyle(fontSize: 14, color: Colors.grey),
                         ),
                       ),
                     );

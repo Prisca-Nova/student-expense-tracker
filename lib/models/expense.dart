@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'expense.g.dart'; // Generated file
 
-@HiveType(typeId: 0) // Unique typeId
+@HiveType(typeId: 2) // Unique typeId
 class Expense {
   @HiveField(0)
   final String id;

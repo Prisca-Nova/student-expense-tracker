@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'models/budget.dart'; // Import your models
-import 'models/saving_goal.dart'; // Import your models
-import 'screens/auth_screen.dart'; // Import your initial screen
+import 'package:smart_expense_tracker/screens/expense_form_screen.dart';
+import 'screens/auth_screen.dart';
+import 'utils/db_helper.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter binding is initialized
-  await Hive.initFlutter(); // Initialize Hive
- Hive.registerAdapter(BudgetAdapter()); // Register your adapters
-  Hive.registerAdapter(SavingGoalAdapter()); // Register your adapters
-  await Hive.openBox<Budget>('budgets'); // Open your boxes
-  await Hive.openBox<SavingGoal>('savings'); // Open your boxes
-  await Hive.openBox('settings'); // Open your boxes
+  WidgetsFlutterBinding.ensureInitialized();
+  await DbHelper.init(); // Initialize Hive and open boxes
   runApp(const MyApp());
 }
 
@@ -25,7 +19,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const AuthScreen(), // Set your initial screen
+      routes: {
+    '/': (context) => AuthScreen(),
+    '/expense_form': (context) => ExpenseFormScreen(),
+    // other routes...
+  },
     );
   }
 }
